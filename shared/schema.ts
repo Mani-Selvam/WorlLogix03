@@ -288,6 +288,15 @@ export const shifts = pgTable("shifts", {
 export const attendancePolicies = pgTable("attendance_policies", {
   id: serial("id").primaryKey(),
   companyId: integer("company_id").references(() => companies.id).notNull(),
+  
+  workStart: varchar("work_start", { length: 10 }).notNull().default("09:00"),
+  workEnd: varchar("work_end", { length: 10 }).notNull().default("18:00"),
+  breakStart: varchar("break_start", { length: 10 }).notNull().default("13:00"),
+  breakEnd: varchar("break_end", { length: 10 }).notNull().default("14:00"),
+  
+  lateMinutesThreshold: integer("late_minutes_threshold").notNull().default(30),
+  absentHoursThreshold: integer("absent_hours_threshold").notNull().default(2),
+  
   halfDayHours: integer("half_day_hours").notNull().default(4),
   fullDayHours: integer("full_day_hours").notNull().default(8),
   lateMarkThreshold: integer("late_mark_threshold").notNull().default(3),
